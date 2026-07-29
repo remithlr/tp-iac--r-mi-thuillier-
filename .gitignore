@@ -23,3 +23,5 @@ credentials
 .DS_Store
 .vscode/
 .idea/
+
+config/*.env
