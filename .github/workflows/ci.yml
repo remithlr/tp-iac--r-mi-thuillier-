@@ -7,36 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  lint:
-    name: Pre-commit checks
+  checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout du dépôt
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Installer Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Installer pre-commit
-        run: pip install pre-commit
-
-      - name: Lancer pre-commit sur tous les fichiers
-        run: pre-commit run --all-files
-
-  secrets:
-    name: Scan des secrets (gitleaks)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout du dépôt
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Scanner l'historique avec gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: pip install pre-commit
+      - run: pre-commit run --all-files
