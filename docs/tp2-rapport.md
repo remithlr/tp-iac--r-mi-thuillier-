@@ -199,8 +199,11 @@ Le site est accessible depuis Internet.
 
 ---
 
-# Destruction du Terraform 
+# Destruction du Terraform et Facturation
 <img width="840" height="692" alt="image" src="https://github.com/user-attachments/assets/6b76163b-ead2-4a28-be6f-9abbc57587db" />
+
+<img width="1912" height="699" alt="image" src="https://github.com/user-attachments/assets/981f9d8d-ef84-41d7-96e4-cd6f116cda6b" />
+
 
 # Gestion du Terraform State
 
