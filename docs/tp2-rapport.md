@@ -224,32 +224,122 @@ IMDSv2 impose l'utilisation d'un jeton pour accéder au service de métadonnées
 
 ---
 
-# Difficultés rencontrées
 
-Lors de ce TP, plusieurs limitations IAM AWS Academy ont été rencontrées :
 
-- ec2:CreateVpc
-- ec2:CreateSecurityGroup
-- ec2:DescribeImages
-
-La solution a consisté à réutiliser les ressources AWS existantes du laboratoire plutôt que d'en créer de nouvelles.
-
+Détection et remédiation de la dérive (Drift)
+ 
+Suite à la modification manuelle de la règle SSH (ouverture à `0.0.0.0/0`) directement sur la console AWS, Terraform a détecté la dérive lors de l'exécution de la commande `terraform plan`.
+ 
+**Sortie du plan de détection :**
+```hcl
+terraform plan
+data.aws_ami.ubuntu: Reading...
+aws_vpc.principal: Refreshing state... [id=vpc-0f276d01180dc43b1]
+data.aws_ami.ubuntu: Read complete after 1s [id=ami-052355af2a014bd2c]
+aws_internet_gateway.igw: Refreshing state... [id=igw-0ab9c0a7513aebedc]
+aws_subnet.public: Refreshing state... [id=subnet-0867acb9aa89b42b7]
+aws_security_group.web: Refreshing state... [id=sg-04746f1cdfa640f2b]
+aws_route_table.public: Refreshing state... [id=rtb-03147a2327259b580]
+aws_route_table_association.public: Refreshing state... [id=rtbassoc-07eef36a1a137cc41]
+aws_instance.web: Refreshing state... [id=i-0108d288875ab946e]
+ 
+ 
+ 
+ 
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+ 
+Terraform will perform the following actions:
+ 
+  # aws_security_group.web will be updated in-place
+  ~ resource "aws_security_group" "web" {
+        id                     = "sg-04746f1cdfa640f2b"
+      ~ ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "37.70.218.118/32",
+                ]
+              + description      = "SSH depuis IP administration UNIQUEMENT"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+            # (1 unchanged element hidden)
+        ]
+        name                   = "tp2-aws-sg-web"
+        tags                   = {
+            "Environment" = "dev"
+            "ManagedBy"   = "terraform"
+            "Name"        = "tp2-aws-sg-web"
+            "Owner"       = "rémi"
+            "Projet"      = "tp2"
+        }
+        # (9 unchanged attributes hidden)
+    }
+ 
+Plan: 0 to add, 1 to change, 0 to destroy.
+ 
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ 
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+Releasing state lock. This may take a few moments...
+ 
+Sensibilité du fichier d'état (State)
+ 
+L'inspection du fichier d'état démontre qu'il contient la topologie complète et des données sensibles en clair.
+ 
+**Trois informations sensibles trouvées dans l'état :**
+1. L'adresse IP publique de l'instance EC2 : `35.175.225.176`
+2. L'identifiant unique du VPC (réseau privé) : `vpc-0f276d01180dc43b1`
+3. L'identifiant du sous-réseau public : `subnet-0867acb9aa89b42b7`
+ 
+**Contrôle de sécurité mis en place :**
+Pour protéger ce fichier critique, la configuration a été externalisée sur un backend distant S3. Les contrôles appliqués sont :
+*   **Chiffrement au repos obligatoire** (`encrypt = true`) via KMS.
+*   **Verrouillage d'état** natif (`use_lockfile = true`) pour prévenir la corruption.
+*   **Blocage des accès publics** et **versioning** activés sur le bucket S3 pour garantir la résilience.
+ 
+ 
+## 3. Équivalence des ressources Terraform (AWS vs Azure)
+ 
+| Concept Cloud | Ressource Terraform AWS | Ressource Terraform Azure |
+| :--- | :--- | :--- |
+| **Réseau virtuel** | `aws_vpc` | `azurerm_virtual_network` |
+| **Sous-réseau** | `aws_subnet` | `azurerm_subnet` |
+| **Pare-feu d'instance** | `aws_security_group` | `azurerm_network_security_group` |
+| **IP Publique** | *Attribut* (`map_public_ip_on_launch`) | `azurerm_public_ip` |
+| **Serveur Linux** | `aws_instance` | `azurerm_linux_virtual_machine` |
+ 
 ---
+ 
+## 4. Analyse de l'incident Capital One (2019) vs IMDSv2
+ 
+L'imposition de la version 2 du service de métadonnées (`http_tokens = "required"`) exige l'émission d'une requête HTTP PUT avec un en-tête personnalisé pour obtenir un jeton, et limite le saut réseau (hop limit) à 1. Dans l'affaire Capital One, cela **aurait bloqué l'attaque**, car la faille SSRF du WAF ne permettait que de forger des requêtes GET simples sans en-tête spécifique. En revanche, cela **n'aurait pas changé** le défaut de conception fondamental : le rôle IAM attaché à l'instance possédait des privilèges de lecture excessifs (violation du principe de moindre privilège).
+ 
+ 
+---
+ 
+## 5. Preuve de destruction
+ 
+L'infrastructure a été intégralement détruite (`terraform destroy`) à l'issue de l'exercice pour des raisons d'hygiène et de maîtrise des coûts.
 
-# Conclusion
+<img width="832" height="741" alt="image" src="https://github.com/user-attachments/assets/f6555df3-7763-4991-9aea-b718165bec2a" />
 
-Le déploiement Terraform a été réalisé avec succès.
 
-Objectifs atteints :
-
-- Terraform initialisé
-- Terraform validé
-- Terraform plan exécuté
-- Terraform apply exécuté
-- Instance EC2 créée
-- Nginx déployé automatiquement
-- IMDSv2 activé
-- Disque chiffré
-- Site Web accessible
-
-Terraform permet de déployer automatiquement une infrastructure cloud de manière reproductible et sécurisée.
