@@ -340,6 +340,8 @@ L'imposition de la version 2 du service de métadonnées (`http_tokens = "requir
  
 L'infrastructure a été intégralement détruite (`terraform destroy`) à l'issue de l'exercice pour des raisons d'hygiène et de maîtrise des coûts.
 
-<img width="832" height="741" alt="image" src="https://github.com/user-attachments/assets/f6555df3-7763-4991-9aea-b718165bec2a" />
+<img width="896" height="686" alt="image" src="https://github.com/user-attachments/assets/b412a43a-4ed1-453e-aaad-d68e0363fec0" />
+
+
 
 
