@@ -26,7 +26,7 @@ Résultat :
 Terraform has been successfully initialized!
 \`\`\`
 
-<img width="792" height="160" alt="image" src="https://github.com/user-attachments/assets/6771411f-8794-42df-8430-8c3c796680cd" />
+<img width="896" height="282" alt="image" src="https://github.com/user-attachments/assets/6675a99c-ecdd-4505-a9d1-5c8ef5a9449a" />
 
 
 ---
@@ -45,9 +45,8 @@ Résultat :
 Success! The configuration is valid.
 \`\`\`
 
-### Capture 2
+<img width="921" height="160" alt="image" src="https://github.com/user-attachments/assets/734ef703-c6b1-403b-8d7c-c8d904b9ae78" />
 
-AJOUTER ICI LA CAPTURE DU TERRAFORM VALIDATE
 
 ---
 
@@ -102,9 +101,8 @@ Résultat :
 Plan: 1 to add, 0 to change, 0 to destroy.
 \`\`\`
 
-### Capture 3
+<img width="1259" height="203" alt="image" src="https://github.com/user-attachments/assets/fbe22611-1c9f-4bb0-856a-db7bfd4e2a2e" />
 
-AJOUTER ICI LA CAPTURE DU TERRAFORM PLAN
 
 ---
 
@@ -122,9 +120,8 @@ Résultat :
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 \`\`\`
 
-### Capture 4
+<img width="1277" height="233" alt="image" src="https://github.com/user-attachments/assets/dc48b28b-97ab-4999-81f2-c60d6439e74c" />
 
-AJOUTER ICI LA CAPTURE DU TERRAFORM APPLY
 
 ---
 
@@ -144,9 +141,8 @@ IP publique obtenue :
 34.229.147.88
 \`\`\`
 
-### Capture 5
+<img width="943" height="135" alt="image" src="https://github.com/user-attachments/assets/487f92e6-339c-4a8e-b578-439b60002ec5" />
 
-AJOUTER ICI LA CAPTURE DU TERRAFORM OUTPUT
 
 ---
 
@@ -164,9 +160,7 @@ Résultat :
 active (running)
 \`\`\`
 
-### Capture 6
-
-AJOUTER ICI LA CAPTURE DU STATUS NGINX
+<img width="1536" height="370" alt="image" src="https://github.com/user-attachments/assets/829ab4d0-041e-4cb2-a065-c50864c00f2a" />
 
 ---
 
@@ -185,9 +179,8 @@ Résultat :
 <p>Terraform fonctionne !</p>
 \`\`\`
 
-### Capture 7
+<img width="498" height="98" alt="image" src="https://github.com/user-attachments/assets/b3538e38-7f3f-4d57-8c90-fa7ce9a7a888" />
 
-AJOUTER ICI LA CAPTURE DU CURL LOCALHOST
 
 ---
 
@@ -201,9 +194,8 @@ http://34.229.147.88
 
 Le site est accessible depuis Internet.
 
-### Capture 8
+<img width="568" height="273" alt="image" src="https://github.com/user-attachments/assets/460c6e34-3704-4a05-a7c0-033be1d5ddac" />
 
-AJOUTER ICI LA CAPTURE DU SITE DANS LE NAVIGATEUR
 
 ---
 
