@@ -26,9 +26,8 @@ Résultat :
 Terraform has been successfully initialized!
 \`\`\`
 
-### Capture 1
+<img width="792" height="160" alt="image" src="https://github.com/user-attachments/assets/6771411f-8794-42df-8430-8c3c796680cd" />
 
-AJOUTER ICI LA CAPTURE DU TERRAFORM INIT
 
 ---
 
