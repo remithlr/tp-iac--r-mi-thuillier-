@@ -25,3 +25,9 @@ credentials
 .idea/
 
 config/*.env
+*.tfplan
+*.bak
+*.backup
+*.old
+*.tfstate
+*.tfstate.*
