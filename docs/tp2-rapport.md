@@ -199,6 +199,9 @@ Le site est accessible depuis Internet.
 
 ---
 
+# Destruction du Terraform 
+<img width="840" height="692" alt="image" src="https://github.com/user-attachments/assets/6b76163b-ead2-4a28-be6f-9abbc57587db" />
+
 # Gestion du Terraform State
 
 Le fichier Terraform State contient plusieurs informations sensibles :
@@ -317,7 +320,7 @@ Pour protéger ce fichier critique, la configuration a été externalisée sur u
 *   **Blocage des accès publics** et **versioning** activés sur le bucket S3 pour garantir la résilience.
  
  
-## 3. Équivalence des ressources Terraform (AWS vs Azure)
+Équivalence des ressources Terraform (AWS vs Azure)
  
 | Concept Cloud | Ressource Terraform AWS | Ressource Terraform Azure |
 | :--- | :--- | :--- |
@@ -329,18 +332,11 @@ Pour protéger ce fichier critique, la configuration a été externalisée sur u
  
 ---
  
-## 4. Analyse de l'incident Capital One (2019) vs IMDSv2
+Analyse de l'incident Capital One (2019) vs IMDSv2
  
 L'imposition de la version 2 du service de métadonnées (`http_tokens = "required"`) exige l'émission d'une requête HTTP PUT avec un en-tête personnalisé pour obtenir un jeton, et limite le saut réseau (hop limit) à 1. Dans l'affaire Capital One, cela **aurait bloqué l'attaque**, car la faille SSRF du WAF ne permettait que de forger des requêtes GET simples sans en-tête spécifique. En revanche, cela **n'aurait pas changé** le défaut de conception fondamental : le rôle IAM attaché à l'instance possédait des privilèges de lecture excessifs (violation du principe de moindre privilège).
  
  
----
- 
-## 5. Preuve de destruction
- 
-L'infrastructure a été intégralement détruite (`terraform destroy`) à l'issue de l'exercice pour des raisons d'hygiène et de maîtrise des coûts.
-
-<img width="896" height="686" alt="image" src="https://github.com/user-attachments/assets/b412a43a-4ed1-453e-aaad-d68e0363fec0" />
 
 
 
