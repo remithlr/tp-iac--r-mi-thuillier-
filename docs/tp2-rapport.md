@@ -28,9 +28,8 @@ Résultat :
 Terraform has been successfully initialized!
 \`\`\`
 
-### Capture
+<img width="945" height="575" alt="image" src="https://github.com/user-attachments/assets/0e2b231b-a715-437f-9988-b23793389f02" />
 
-AJOUTER CAPTURE TERRAFORM INIT
 
 ---
 
@@ -48,9 +47,8 @@ Résultat :
 Success! The configuration is valid.
 \`\`\`
 
-### Capture
+<img width="945" height="246" alt="image" src="https://github.com/user-attachments/assets/7e65000f-5b6b-4dee-bac8-ed9f561800ab" />
 
-AJOUTER CAPTURE TERRAFORM VALIDATE
 
 ---
 
@@ -91,9 +89,10 @@ Successfully configured the backend "s3"!
 Terraform has been successfully initialized!
 \`\`\`
 
-### Capture
+<img width="945" height="461" alt="image" src="https://github.com/user-attachments/assets/2500b8ef-a196-41b8-a86d-b24674a5285e" />
 
-AJOUTER CAPTURE BACKEND S3
+<img width="945" height="639" alt="image" src="https://github.com/user-attachments/assets/b684da6d-7656-4aca-93d3-8b786495df5a" />
+
 
 ---
 
@@ -121,9 +120,8 @@ terraform plan
 
 Terraform affiche l'ensemble des actions avant le déploiement.
 
-### Capture
+<img width="945" height="464" alt="image" src="https://github.com/user-attachments/assets/0f971e9e-1e2a-43e6-aff6-01d79f5dffee" />
 
-AJOUTER CAPTURE TERRAFORM PLAN
 
 ---
 
@@ -141,9 +139,11 @@ Résultat :
 Apply complete!
 \`\`\`
 
-### Capture
+<img width="945" height="788" alt="image" src="https://github.com/user-attachments/assets/c3520391-abef-4aec-a610-316557376cbf" />
 
-AJOUTER CAPTURE TERRAFORM APPLY
+<img width="945" height="171" alt="image" src="https://github.com/user-attachments/assets/e8e7e668-9b3c-4dd0-bb4b-9c7dcf1fecfe" />
+
+
 
 ---
 
@@ -185,9 +185,8 @@ La connexion SSH a été vérifiée avec :
 ssh -i labsuser.pem ubuntu@54.205.181.154
 \`\`\`
 
-### Capture
+<img width="945" height="841" alt="image" src="https://github.com/user-attachments/assets/3f0d6cc7-bb01-4807-aea2-615651492b8e" />
 
-AJOUTER CAPTURE SSH
 
 ---
 
@@ -207,9 +206,8 @@ Résultat :
 instance_ip = "54.205.181.154"
 \`\`\`
 
-### Capture
+<img width="945" height="171" alt="image" src="https://github.com/user-attachments/assets/3ee79ec8-4fda-47cf-9fa5-5dae44e8a280" />
 
-AJOUTER CAPTURE TERRAFORM OUTPUT
 
 ---
 
@@ -227,9 +225,8 @@ Résultat :
 active (running)
 \`\`\`
 
-### Capture
+<img width="945" height="480" alt="image" src="https://github.com/user-attachments/assets/ba89bf60-f6ef-48b4-8313-00d1321f5cff" />
 
-AJOUTER CAPTURE NGINX
 
 ---
 
@@ -245,9 +242,8 @@ Résultat :
 
 Affichage de la page Web hébergée localement.
 
-### Capture
+<img width="838" height="752" alt="image" src="https://github.com/user-attachments/assets/8e958046-c04d-4c20-814c-38640d7cb78f" />
 
-AJOUTER CAPTURE CURL LOCALHOST
 
 ---
 
@@ -265,9 +261,8 @@ Le site déployé est :
 Subito Pizza
 \`\`\`
 
-### Capture
+<img width="945" height="473" alt="image" src="https://github.com/user-attachments/assets/7e95c2f9-812c-42ba-b713-1fc9c982bcf8" />
 
-AJOUTER CAPTURE SITE SUBITO PIZZA
 
 ---
 
@@ -333,9 +328,14 @@ Le playbook met automatiquement en place :
 - le démarrage du service ;
 - le déploiement du site Web Subito Pizza.
 
-### Capture
+<img width="945" height="138" alt="image" src="https://github.com/user-attachments/assets/f11c040c-87e0-4341-a2fd-42120cce33be" />
 
-AJOUTER CAPTURE PLAYBOOK ANSIBLE
+<img width="945" height="804" alt="image" src="https://github.com/user-attachments/assets/607cb694-55e2-42b8-bf08-7e3e992460a8" />
+
+<img width="945" height="405" alt="image" src="https://github.com/user-attachments/assets/5906cca2-e1dc-4256-93c8-62d4643ebb86" />
+
+
+
 
 ---
 
@@ -385,17 +385,12 @@ Résultats :
 - TFLint : OK
 - Trivy : 0 mauvaise configuration détectée
 
-### Capture
+<img width="945" height="126" alt="image" src="https://github.com/user-attachments/assets/c5ece92a-57ce-4216-829a-6bfdf58cbe59" />
 
-AJOUTER CAPTURE MAKE FMT
+<img width="945" height="108" alt="image" src="https://github.com/user-attachments/assets/51c40d83-3e8a-4c12-9433-4818253bd0c2" />
 
-### Capture
+<img width="945" height="622" alt="image" src="https://github.com/user-attachments/assets/5a839ff9-f6df-4b92-bce5-03e1044d94a5" />
 
-AJOUTER CAPTURE MAKE TFLINT
-
-### Capture
-
-AJOUTER CAPTURE MAKE TRIVY
 
 ---
 
@@ -443,13 +438,12 @@ Résultat attendu :
 Destroy complete!
 \`\`\`
 
-### Capture
+<img width="945" height="334" alt="image" src="https://github.com/user-attachments/assets/650ec952-16e0-44b4-91e6-5950fb74405e" />
 
-AJOUTER CAPTURE TERRAFORM DESTROY
+<img width="945" height="410" alt="image" src="https://github.com/user-attachments/assets/7bb54bcb-79dc-4fbf-a139-b62156f6f557" />
 
-### Capture
+<img width="945" height="379" alt="image" src="https://github.com/user-attachments/assets/6d662533-1037-4b74-b8dd-61dbeeb1b88d" />
 
-AJOUTER CAPTURE CONSOLE AWS VIDE
 
 ---
 

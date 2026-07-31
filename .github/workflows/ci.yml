@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   validate:
     runs-on: ubuntu-latest
 
@@ -17,18 +16,17 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
-      - name: Install Trivy
-        run: |
-          wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
-
       - name: Terraform Format Check
         run: make fmt
 
       - name: TFLint
         run: make tflint
 
-      - name: Trivy
-        run: make trivy
+      - name: Trivy Security Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: .
 
   deploy:
     needs: validate
