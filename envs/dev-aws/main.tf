@@ -1,6 +1,14 @@
 terraform {
   required_version = ">= 1.10"
 
+  backend "s3" {
+    bucket       = "remi-tfstate-test-1785488912"
+    key          = "terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -26,8 +34,9 @@ resource "aws_instance" "web" {
   ]
 
   metadata_options {
-    http_endpoint = "enabled"
-    http_tokens   = "required"
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 2
   }
 
   root_block_device {
@@ -40,6 +49,7 @@ resource "aws_instance" "web" {
 #!/bin/bash
 apt-get update
 apt-get install -y nginx
+
 systemctl enable nginx
 systemctl start nginx
 
@@ -59,6 +69,9 @@ HTML
 EOF
 
   tags = {
-    Name = "tp2-remi"
+    Name        = "tp2-remi"
+    ManagedBy   = "terraform"
+    Owner       = "remi"
+    Environment = "dev"
   }
 }
