@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   validate:
     runs-on: ubuntu-latest
 
@@ -23,8 +22,8 @@ jobs:
       - name: TFLint
         run: make tflint
 
-      - name: Trivy Scan
-        uses: aquasecurity/trivy-action@master
+      - name: Trivy Security Scan
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: config
           scan-ref: .
