@@ -53,5 +53,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ansible
 
+      - name: Create SSH Key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > labsuser.pem
+          chmod 600 labsuser.pem
+
       - name: Run Playbook
-        run: make ansible
+        run: |
+          ansible-playbook \
+            -i inventory.ini \
+            --private-key labsuser.pem \
+            playbook.yml
