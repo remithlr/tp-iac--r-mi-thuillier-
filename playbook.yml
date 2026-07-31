@@ -1,0 +1,105 @@
+---
+- name: Deployment Subito Pizza
+  hosts: web
+  remote_user: ubuntu
+  become: true
+
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy website
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head>
+              <meta charset="UTF-8">
+              <title>Subito Pizza</title>
+              <style>
+                  body{
+                      margin:0;
+                      font-family:Arial,sans-serif;
+                      background:#fff5ec;
+                  }
+                  header{
+                      background:#d62828;
+                      color:white;
+                      text-align:center;
+                      padding:60px;
+                  }
+                  h1{
+                      font-size:4rem;
+                  }
+                  .menu{
+                      display:grid;
+                      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+                      gap:20px;
+                      padding:40px;
+                  }
+                  .pizza{
+                      background:white;
+                      padding:20px;
+                      border-radius:15px;
+                      box-shadow:0 0 10px rgba(0,0,0,.15);
+                  }
+                  footer{
+                      background:#222;
+                      color:white;
+                      text-align:center;
+                      padding:20px;
+                  }
+              </style>
+          </head>
+          <body>
+
+          <header>
+            <h1>🍕 SUBITO PIZZA 🍕</h1>
+            <p>La pizza qui arrive subito !</p>
+          </header>
+
+          <div class="menu">
+
+            <div class="pizza">
+              <h2>Margherita</h2>
+              <p>Tomate, mozzarella, basilic</p>
+              <strong>9 €</strong>
+            </div>
+
+            <div class="pizza">
+              <h2>Reine</h2>
+              <p>Jambon, champignons</p>
+              <strong>11 €</strong>
+            </div>
+
+            <div class="pizza">
+              <h2>4 Fromages</h2>
+              <p>Mozzarella, chèvre, bleu</p>
+              <strong>12 €</strong>
+            </div>
+
+            <div class="pizza">
+              <h2>Pepperoni</h2>
+              <p>Pepperoni, mozzarella</p>
+              <strong>13 €</strong>
+            </div>
+
+          </div>
+
+          <footer>
+            Déployé avec Terraform & Ansible • Rémi Thuillier
+          </footer>
+
+          </body>
+          </html>
