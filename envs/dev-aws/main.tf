@@ -17,6 +17,8 @@ resource "aws_instance" "web" {
   ami           = "ami-0f8a61b66d1accaee"
   instance_type = "t3.micro"
 
+  key_name = "vockey"
+
   subnet_id = "subnet-0f7d1efe7c6e13939"
 
   vpc_security_group_ids = [
@@ -42,8 +44,17 @@ systemctl enable nginx
 systemctl start nginx
 
 cat > /var/www/html/index.html <<HTML
-<h1>TP2 Rémi Thuillier</h1>
-<p>Terraform fonctionne !</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subito Pizza</title>
+</head>
+<body style="font-family:Arial;text-align:center;background:#fff5ec;padding-top:100px;">
+    <h1>🍕 Subito Pizza 🍕</h1>
+    <h2>La pizza qui arrive subito !</h2>
+    <p>Déployé avec Terraform</p>
+</body>
+</html>
 HTML
 EOF
 
