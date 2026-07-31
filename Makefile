@@ -1,18 +1,27 @@
 SHELL := /bin/bash
-.SHELLFLAGS := -eu -o pipefail -c
-.DEFAULT_GOAL := help
 
-.PHONY: help lint secrets clean
+TF_DIR=envs/dev-aws
 
-help: ## Affiche cette aide
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
-	awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+.PHONY: fmt tflint trivy apply inventory ansible
 
-lint: ## Lance les verifications
-	pre-commit run --all-files
+fmt:
+	cd $(TF_DIR) && terraform fmt -check
 
-secrets: ## Scanne l'historique pour des secrets
-	gitleaks detect --source . --verbose
+tflint:
+	cd $(TF_DIR) && tflint
 
-clean: ## Nettoie les fichiers temporaires
-	rm -rf .terraform *.tfstate*
+trivy:
+	trivy config .
+
+apply:
+	cd $(TF_DIR) && terraform init
+	cd $(TF_DIR) && terraform apply -auto-approve
+
+inventory:
+	cd $(TF_DIR) && terraform output -raw instance_ip > ../../ip.txt
+	echo "[web]" > inventory.ini
+	cat ip.txt >> inventory.ini
+	rm ip.txt
+
+ansible:
+	ansible-playbook -i inventory.ini playbook.yml

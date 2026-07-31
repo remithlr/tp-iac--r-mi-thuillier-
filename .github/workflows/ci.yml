@@ -1,18 +1,54 @@
-name: CI
+name: Terraform Ansible Pipeline
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  checks:
+
+  validate:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install pre-commit
-      - run: pre-commit run --all-files
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: Install Trivy
+        run: |
+          wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
+
+      - name: Terraform Format Check
+        run: make fmt
+
+      - name: TFLint
+        run: make tflint
+
+      - name: Trivy
+        run: make trivy
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Apply
+        run: make apply
+
+      - name: Generate Inventory
+        run: make inventory
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Run Playbook
+        run: make ansible
